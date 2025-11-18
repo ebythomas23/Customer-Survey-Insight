@@ -1,3 +1,5 @@
 autogen-agentchat  
 autogen-ext[openai]
+autogen-core
 dotenv
+pandas
