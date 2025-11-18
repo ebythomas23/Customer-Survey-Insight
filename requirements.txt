@@ -4,3 +4,5 @@ autogen-core
 dotenv
 pandas
 scikit-learn
+openai
+matplotlib
