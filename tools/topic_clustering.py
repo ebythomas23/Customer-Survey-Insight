@@ -6,7 +6,7 @@ import numpy as np
 from sklearn.cluster import KMeans
 from openai import AsyncOpenAI
 from dotenv import load_dotenv
-
+import os 
 load_dotenv()
 
 
@@ -29,7 +29,7 @@ async def TopicClustering(
     topics_series = df[topics_column].apply(ast.literal_eval)
     unique_topics: List[str] = sorted({t for lst in topics_series for t in lst})
 
-    client = AsyncOpenAI( api_key= OPENAI_EMBEDDING_API_KEY)
+    client = AsyncOpenAI( api_key= os.getenv('OPENAI_EMBEDDING_API_KEY'))
     response = await client.embeddings.create(
         input=unique_topics,
         model="text-embedding-3-small",
