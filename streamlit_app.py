@@ -3,8 +3,7 @@ import streamlit as st
 import pandas as pd
 from pathlib import Path
 from PIL import Image
-# Load .env for local development
-load_dotenv()
+
 
 # Load secrets when running on Streamlit Cloud
 chat_key = st.secrets.get("OPENAI_API_KEY")
