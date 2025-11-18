@@ -272,3 +272,96 @@ top_n: int = 5  # Number of top themes to highlight
     ├── cluster_labelling.py      # Step 3: Labelling
     └── business_insight.py       # Step 4: Insights & plots
 ```
+
+## Business Insights
+
+The pipeline transforms raw survey data into two deliverables: a structured CSV file (`output.csv`) ready for Power BI/Tableau dashboards, and four analytical charts that answer critical business questions. Together, these outputs enable executives to identify top customer pain points, understand product-specific issues, assess problem severity through sentiment analysis, and track improvement trends over time.
+
+### The Four Charts
+
+All charts are saved as PNG files in the `data/` folder.
+
+<table>
+<tr>
+<td width="50%">
+
+#### 1. Top Customer Pain Points
+[`plot_top_pain_points.png`](data/plot_top_pain_points.png)
+
+![Top Pain Points](data/plot_top_pain_points.png)
+
+This bar chart shows which issues customers mention most often. If "Claims Processing" appears 150 times and "Website Issues" appears 30 times, you know where to focus first.
+
+</td>
+<td width="50%">
+
+#### 2. Pain Points by Product
+[`heatmap_pain_points_by_product.png`](data/heatmap_pain_points_by_product.png)
+
+![Pain Points by Product](data/heatmap_pain_points_by_product.png)
+
+This heatmap shows which problems affect which products. For example, if "Combined Insurance" has many complaints about billing but "Travel Insurance" doesn't, you know the issue is product-specific.
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+#### 3. Theme Severity by Sentiment
+[`theme_severity_stacked.png`](data/theme_severity_stacked.png)
+
+![Theme Severity](data/theme_severity_stacked.png)
+
+This shows how angry or satisfied customers are about each issue. A theme that's 80% negative is more urgent than one that's 50% neutral, even if mentioned the same number of times.
+
+</td>
+<td width="50%">
+
+#### 4. Theme Trends Over Time
+[`theme_trends_over_time.png`](data/theme_trends_over_time.png)
+
+![Theme Trends](data/theme_trends_over_time.png)
+
+This line chart tracks complaints month by month. If complaints about "Call Wait Times" are going down, your improvements are working. If they're going up, you need to act quickly.
+
+</td>
+</tr>
+</table>
+
+### Adding More Charts or features 
+
+To add new visualizations, simply add new plot functions to `tools/business_insight.py` or register new tool and addin `MCP/server.py`. The system automatically makes them available to the agent.
+
+
+## Improvement Plan for the Project
+
+
+### 1. Monitoring, Tracing, and Cost Tracking
+- Integrate AgentOps for monitoring, tracing, and observability across all agent steps.
+- Record execution flow for each tool invocation in the pipeline.
+- Track and compare cost and token usage across different models, including lighter ones like **gpt-5-mini**.
+
+### 2. Explore Multi-Agent Architectures
+- Try out different multi-agent patterns such as **SelectorGroupChat** and other routing/composer architectures.
+- Benchmark each option on output quality, speed, and cost.
+- Select the most effective architecture for this workflow.
+
+### 3. Embeddings and Tool Definition Improvements
+- Revisit embedding model selection and tuning for topic extraction and clustering.
+- Improve chunking strategy and embedding dimensionality choices.
+- Clean up and refine all MCP tool definitions for clearer agent interaction.
+
+### 4. Logging for MCP Server
+- Add structured logging for every MCP tool call.
+- Capture success/failure states, latency, and payload sizes.
+- Store logs in a consistent format to support analysis and debugging.
+
+### 5. Fully-Defined MCP Server Setup and Hosting
+- Build a clean, modular, and well-documented MCP server.
+- Host it locally or remotely for reliable agent access.
+- Use AutoGen’s **Workbench** to test tool flows end-to-end and validate behaviour.
+
+### 6. Human-in-the-Loop for Top-N Insights and visualisation 
+- Add a review step where users can adjust or confirm the top-N extracted topics.
+- Define the exact visualisations needed (bar charts, cluster scatter, word clouds, sentiment breakdown).
+- Create an agent that generates the exact graph/plot requested by the user using the processed data.
