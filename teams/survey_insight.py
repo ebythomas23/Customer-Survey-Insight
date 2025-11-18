@@ -8,7 +8,7 @@ async def get_survey_insight_team():
 
     team = RoundRobinGroupChat(
             participants=[agent],
-            max_turns=2,
+            max_turns=3,
             termination_condition=TextMentionTermination('STOP')
         )
     return team
