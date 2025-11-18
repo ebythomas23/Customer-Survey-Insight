@@ -4,17 +4,6 @@ import pandas as pd
 from pathlib import Path
 from PIL import Image
 
-
-# Load secrets when running on Streamlit Cloud
-chat_key = st.secrets.get("OPENAI_API_KEY")
-embed_key = st.secrets.get("OPENAI_EMBEDDING_API_KEY")
-
-if chat_key:
-    os.environ["OPENAI_API_KEY"] = chat_key
-
-if embed_key:
-    os.environ["OPENAI_EMBEDDING_API_KEY"] = embed_key
-
 from teams.survey_insight import get_survey_insight_team
 
 st.set_page_config(page_title="Survey Insight Agent", layout="wide")
